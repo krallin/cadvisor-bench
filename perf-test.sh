@@ -78,7 +78,3 @@ if [[ "$sleepFor" -gt 0 ]]; then
   echo "Sleeping for $sleepFor seconds ot complete $duration test run"
   sleep "$sleepFor"
 fi
-
-
-# And wait for 10 more minutes
-sleep 600
