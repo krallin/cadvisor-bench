@@ -85,6 +85,6 @@ doneTs="$(date +%s)"
 duration=600
 sleepFor="$(($duration - ($doneTs - $startTs)))"
 if [[ "$sleepFor" -gt 0 ]]; then
-  echo "Sleeping for $sleepFor seconds ot complete $duration test run"
+  echo "Sleeping for $sleepFor seconds to complete $duration test run"
   sleep "$sleepFor"
 fi
