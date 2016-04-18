@@ -10,6 +10,13 @@ if [[ -n "$(docker ps -q)" ]]; then
   exit 1
 fi
 
+# Start a bunch of long-lived containers first (these will exercise start up,
+# and possibly surface thundering problems with caches)
+echo "Starting prestart sleepers"
+for i in $(seq 0 100); do
+  docker run -d debian sleep 1200
+done
+
 # Start the cAdvisors
 export CG_ROOT="/sys/fs/cgroup"
 
