@@ -14,8 +14,11 @@ fi
 export CG_ROOT="/sys/fs/cgroup"
 
 WORKER_PIDS=()
+PORT=9876
 for v in control candidate; do
-  CADVISOR="cadvisor.${v}" CG_NAME="cadvisor-test-${v}" OUT_BASE="${RESULTS_PATH}/${v}" ./run-cadvisor.sh &
+  PORT="$((PORT + 1))"
+
+  CADVISOR="cadvisor.${v}" CG_NAME="cadvisor-test-${v}" OUT_BASE="${RESULTS_PATH}/${v}" LISTEN_PORT="$PORT" ./run-cadvisor.sh &
   WORKER_PIDS+=("$!")
 done
 

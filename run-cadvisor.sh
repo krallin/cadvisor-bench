@@ -4,6 +4,7 @@ set -o nounset
 
 # Expect variables:
 # CADVISOR
+# LISTEN_PORT
 # CG_ROOT
 # CG_NAME
 # OUT_BASE
@@ -48,11 +49,9 @@ cadvisor_version="$("$CADVISOR" --version)"
 # Start cAdvisor, in the cgroups. Capture a PID to kill it later.
 # TODO: Remove the panic timeout if I ever upstream this
 sudo cgexec -g "$cg_descriptor" "$(which $CADVISOR)" \
-  --enable_load_reader \
   --docker_only \
   --storage_driver=stdout \
-  --panic_timeout=10m \
-  --listen_path "${RUN_DIR}/sock" \
+  --port "${LISTEN_PORT}" \
   --log_dir "${RUN_DIR}" \
   2>&1 > "${RUN_DIR}/out" &
 CADVISOR_PID="$!"  # Technially sudo's, but that's fine
